@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Are you sleeping ya a7la she?</h1>
+{% endblock %}
+
+{% block body %}
+
+<button onclick="window.location.href='/on'">Lights On</button>
+<button onclick="window.location.href='/off'">Lights Off</button>
+
+<form method="POST">
+    <input type="number" id="Brightness" name="Brightness" min="1" max="254">
+</form>
+
+{% endblock %}
+
