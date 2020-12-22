@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import pandas as pd
 from qhue import Bridge
 
 app = Flask(__name__)
