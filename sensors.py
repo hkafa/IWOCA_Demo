@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import requests
 import urllib3
-from app3 import lights_now
+from app import lights_now
 import random
 from datetime import datetime
 
