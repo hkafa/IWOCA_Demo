@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
 from qhue import Bridge
 
@@ -12,11 +12,18 @@ def lights_now():
     status = 'on' if lights_now else 'off'
     return status
 
-@app.route('/')
+@app.route('/',methods=['GET', 'POST'])
 def index():
     try:
-        status = lights_now()
-        return render_template('index.html', **locals())
+        if request.method == 'POST':
+            value = request.form['brightness']
+            b = Bridge('192.168.1.3', bridge_username)
+            b.lights[1].state(on= True, bri=int(value))
+            status = lights_now()
+            return render_template('index.html', **locals())
+        else:
+            status = lights_now()
+            return render_template('index.html', **locals())
     except requests.exceptions.ConnectionError:
         return render_template('Error.html')
 
@@ -35,6 +42,6 @@ def lights_off():
     return render_template('index.html', **locals())
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(debug=True, host='0.0.0.0', port=80)
 
 

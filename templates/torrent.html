@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block torrent %}
+
+<form method="POST">
+    <h2>What are you searching for?</h2><br>
+    <input type="text" id="search_field" name="search" size="50" autocomplete="off"><br>
+    <br>
+    <br>
+    <button class="btn btn-lg btn-secondary">Search</button>
+</form>
+
+
+{% if list_of_titles == [] %}
+    <br>
+    <p class="lead">No torrents found for {{ search_string }}. Enter another keyword</p>
+{% endif %}
+
+{% endblock %}
+
+

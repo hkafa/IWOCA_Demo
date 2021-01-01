@@ -5,9 +5,9 @@
 <h1 class="cover-heading">Hello Hue!</h1>
 
 {% if elec == 'Power' %}
-    <p class="lead" id="on">Power is on 😍</p>
+<p class="lead" id="on">Power is on 😍</p>
 {% else %}
-    <p class="lead" id="off">There is no electricity at home at the moment Please try again later 😔</p>
+<p class="lead" id="off">There is no electricity at home at the moment Please try again later 😔</p>
 {% endif %}
 
 <p class="lead">
@@ -20,10 +20,10 @@
     <p class="lead">
         <div class="slidecontainer">
             <input type="range" min="1" max="254" value={{ value }} class="slider" id="myRange" name="brightness">
-            <p>{{ percentage }}</p>
-            <a class="btn btn-lg btn-secondary" href="javascript:$('form').submit()">Change Brightness</a>
+    <p>{{ percentage }}</p>
+    <a class="btn btn-lg btn-secondary" href="javascript:$('form').submit()">Change Brightness</a>
 
-        </div>
+    </div>
     </p>
 
 

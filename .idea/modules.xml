@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AE/.idea/AE.iml" filepath="$PROJECT_DIR$/../AE/.idea/AE.iml" />
       <module fileurl="file://$PROJECT_DIR$/../BW scripts/.idea/BW scripts.iml" filepath="$PROJECT_DIR$/../BW scripts/.idea/BW scripts.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/pythonProject2.iml" filepath="$PROJECT_DIR$/.idea/pythonProject2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../torrent/.idea/torrent.iml" filepath="$PROJECT_DIR$/../torrent/.idea/torrent.iml" />
     </modules>
   </component>
 </project>
