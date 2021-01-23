@@ -3,19 +3,16 @@
 {% block torrent_result %}
 <br>
 <br>
-
 <form method="POST">
     <input class="form-control" type="text" name="search" size="20" placeholder="Search for another keyword" aria-label="Search" autocomplete="off">
     <button class="btn btn-lg btn-outline-secondary">Search</button>
 </form>
 <br>
 <br>
-
 {% if list_of_titles == [] %}
 <br>
 <p class="lead">No torrents found for {{ search_string }}. Enter another keyword</p>
 {% endif %}
-
 <h2>{{ search_string }}</h2>
 <br>
 <table style="width:150%">

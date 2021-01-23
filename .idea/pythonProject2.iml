@@ -7,5 +7,6 @@
     <orderEntry type="module" module-name="BW scripts" />
     <orderEntry type="module" module-name="AE" />
     <orderEntry type="module" module-name="torrent" />
+    <orderEntry type="module" module-name="learnPython" />
   </component>
 </module>

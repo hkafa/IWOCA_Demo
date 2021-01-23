@@ -3,8 +3,12 @@ import requests
 import urllib3
 from qhue import Bridge
 from torrent import find_torrent_list
+from hub import sensor_read
 
 app = Flask(__name__)
+
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 bridge_username = 'bzyWKfvOkgNqFtRahH01WYX8efdA1kBRqUMPF1Nq'
 Bridge_IP = '192.168.1.30'
@@ -83,6 +87,12 @@ def torrent_result():
             return render_template('torrent_result.html', **locals())
     else:
         return render_template('torrent_result.html')
+
+@app.route('/sensors')
+def sensors():
+    readings = sensor_read()
+    print(readings)
+    return render_template('sensors.html', **locals())
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
