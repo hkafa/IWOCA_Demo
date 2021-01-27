@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify, json, make_response
 import requests
 import urllib3
 from qhue import Bridge
@@ -8,7 +8,6 @@ from hub import sensor_read
 app = Flask(__name__)
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-
 
 bridge_username = 'bzyWKfvOkgNqFtRahH01WYX8efdA1kBRqUMPF1Nq'
 Bridge_IP = '192.168.1.30'
@@ -20,7 +19,7 @@ def lights_now():
         status = 'on' if lights_now else 'off'
         elec = "Power"
         return b, status, elec
-    except urllib3.exceptions.ConnectTimeoutError:
+    except:
         status = 'off'
         elec = "No Power"
         return b, status, elec
@@ -91,10 +90,14 @@ def torrent_result():
 @app.route('/sensors')
 def sensors():
     readings = sensor_read()
-    print(readings)
     return render_template('sensors.html', **locals())
+
+@app.route('/sensor_update', methods=['POST'])
+def sensor_update():
+    readings =  sensor_read()
+    response = make_response()
+    response.data = json.dumps(readings)
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-
-
