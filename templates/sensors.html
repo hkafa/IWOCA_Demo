@@ -2,25 +2,22 @@
 
 
 {% block sensors %}
-<script></script>
-    <div id="liveData">
-        <p id="Light">Light intensity = {{ readings['lux'] }} lux </p>
-        <p id="Ambient">Ambient temperature = {{ readings['ambient_temp'] }} ˚C</p>
-        <p id="onboard">On_board temperature = {{ readings['on_board_temp'] }} ˚C</p>
-        <p id="humidity">Humidity = {{ readings['humidity'] }} %</p>
-        <p id="pressure">Pressure = {{ readings.pressure }} Pascal</p>
 
-        {% if readings['motion'] == True %}
-                <p id="motion"> Someone is in the room</p>
-            {% else %}
-                <p id="motion"> The room is empty</p>
-            {% endif %}
-    </div>
+<p>TESTING NOW</p>
+<!--<div class="flex-container" >-->
+<!--    <canvas id="my pressure Chart" width="5" height="5"></canvas>-->
+<!--    <canvas id="my temp Chart" width="5" height="5"></canvas>-->
+<!--    <canvas id="my humidity Chart" width="5" height="5"></canvas>-->
+<!--</div>-->
 
-<script>
-</script>
+<div class="flex-container">
+    <button id="1 hour">1 hour</button>
+    <button id="3 hours">3 hours</button>
+    <button id="7 hours">7 hours</button>
 
-<canvas id="myChart" width="40" height="40"></canvas>
+    <canvas id="my pressure Chart" width="5" height="5"></canvas>-->
+
+</div>
 
 
 <script type="text/javascript" src="/static/js/main.js"></script>

@@ -1,4 +1,8 @@
 import smbus
+import time
+from pandas import DataFrame
+from datetime import datetime
+from app import *
 
 def sensor_read ():
     DEVICE_BUS = 1
@@ -56,3 +60,17 @@ def sensor_read ():
     sensor_readings['pressure'] = aReceiveBuf[BMP280_PRESSURE_REG_L] | aReceiveBuf[BMP280_PRESSURE_REG_M] << 8 | aReceiveBuf[BMP280_PRESSURE_REG_H] << 16
 
     return sensor_readings
+
+if __name__ == '__main__':
+
+    pressure_data = []
+    counter = 0
+
+    while True:
+        readings = sensor_read()
+        p1 = Sensors_db(pressure=readings['pressure'])
+        db.session.add(p1)
+        db.session.commit()
+        print(counter)
+        time.sleep(10)
+        counter += 1
