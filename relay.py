@@ -17,15 +17,10 @@ while True:
     # print(hour)
     print(readings['lux'])
     print(hour)
-    if elec == 'No Power' and readings['lux'] < 120 and (hour > 15 or hour < 1):
+    if elec == 'No Power' and readings['lux'] < 120 and (hour > 15 or hour < 5):
         GPIO.output(4, GPIO.HIGH)
         time.sleep(1)
-        # if readings['motion'] == False and :
-        #     elapsed_time = time.time() - start_time
-        #     start_time = time.time()
-        #     time.sleep(10)
-        #     elapsed_time = time.time() - start_time
-        #     elapsed_time
+
     else:
         GPIO.output(4, GPIO.LOW)
         time.sleep(1)

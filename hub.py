@@ -68,9 +68,9 @@ if __name__ == '__main__':
 
     while True:
         readings = sensor_read()
-        p1 = Sensors_db(pressure=readings['pressure'])
-        db.session.add(p1)
-        db.session.commit()
-        print(counter)
-        time.sleep(10)
-        counter += 1
+        # p1 = Sensors_db(pressure=readings['pressure'])
+        # db.session.add(p1)
+        # db.session.commit()
+        print('Ambient temperature is: ' + str(readings['ambient_temp']) + ' ˚C')
+        time.sleep(5)
+

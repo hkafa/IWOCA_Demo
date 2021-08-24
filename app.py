@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, json, make_response
+from flask import Flask, render_template, request, redirect, url_for, jsonify, json, make_response, flash
 from flask_sqlalchemy import SQLAlchemy
 import requests
 import urllib3
@@ -7,11 +7,14 @@ from torrent import find_torrent_list
 # from hub import sensor_read
 from sqlalchemy.inspection import inspect
 import datetime
+import requests
+from syriatel import *
+from topup import *
 
 app = Flask(__name__)
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres+psycopg2:///sensors'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2:///sensors'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -35,6 +38,7 @@ class Sensors_db(db.Model, Serializer):
 
     def __repr__(self):
         return f'<Reading {self.id} | pressure {self.pressure}>'
+
 db.create_all()
 
 bridge_username = 'bzyWKfvOkgNqFtRahH01WYX8efdA1kBRqUMPF1Nq'
@@ -134,8 +138,44 @@ def sensor_update():
     response = make_response()
     response.data = json.dumps(Sensors_db.serlialize_list(data))
 
-
     return response
 
+@app.route('/syriatel')
+def syriatel():
+    login_session = syriatel_login()
+    usage = syriatel_usage(login_session)
+    return jsonify(usage)
+
+
+@app.route('/topup', methods=['GET', 'POST'])
+def topup():
+    csrf, session = bank_login()
+    if request.method == 'POST' and int(request.form['Amount']) < 40000:
+        if 'MTN' in request.form:
+            number = request.form['Mobile Number']
+            amount = request.form['Amount']
+            denominations = mtn_denominations(amount)
+            print(denominations)
+            for i in denominations:
+                mtn_topup(csrf, session, number, i)
+                # flash(outcome)
+
+        elif 'Syriatel' in request.form:
+            number = request.form['Mobile Number']
+            amount = request.form['Amount']
+            denominations = syriatel_denominations(amount)
+            print(denominations)
+            for i in denominations:
+                syriatel_topup(csrf, session, number, i)
+
+    return render_template('topup.html', **locals())
+
+@app.route('/Nasa')
+def nasa():
+    params={'api_key':'eJ7J8LHfyN2756fYnTSOqHPh6X6geSNgziJynaDC'}
+    data = requests.get('https://api.nasa.gov/planetary/apod', params=params)
+    data = json.loads(data.text)
+    return render_template('nasa.html', **locals())
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+   app.run(debug=True, host='0.0.0.0', port=80)
